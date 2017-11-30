@@ -1,9 +1,9 @@
-//Filename: QueenAnt.java
+//Filename: SoldierAnt.java
 //Written By: Jake Thousand
 //Written On: 2017-11-27
 //Description:
 
-public class QueenAnt implements Ant {
+public class SoldierAnt implements Ant {
   //attributes
   private int antID;
   private int currentAge;
@@ -11,7 +11,7 @@ public class QueenAnt implements Ant {
   private int xCoordinate;
   private int yCoordinate;
   //constructor
-  public QueenAnt() {
+  public SoldierAnt() {
 
   }
   //get and set methods

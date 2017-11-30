@@ -9,16 +9,16 @@ public interface Ant {
   void setAntID(int antID);
   //get & set currentAge attribute
   int getCurrentAge();
-  void setCurrentAge(int currentAntAge);
+  void setCurrentAge(int currentAge);
   //get & set maxLife attrbiute
-  int getMaxLife();
-  void setMaxLife(int maxAntAge);
+  int getMaxAge();
+  void setMaxAge(int maxAge);
   //get & set xCoordinate attribute
-  int getCoordinateX();
-  void setCoordinateX(int xCoord);
+  int getXCoordinate();
+  void setXCoordinate(int xCoordinate);
   //get & set yXoordinate attrbiute
-  int getCoordinateY();
-  void setCoordinateY(int yCoord);
+  int getYCoordinate();
+  void setYCoordinate(int yCoordinate);
   //moveAction to move Ant from Node to Node
   void moveAction(int xCoord, int yCoord);
 }
