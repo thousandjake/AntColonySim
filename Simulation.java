@@ -10,12 +10,13 @@ import javax.swing.Timer;
 
 public class Simulation implements ActionListener, SimulationEventListener {
 	private int turnCount;
-  private Timer newTimer = new Timer(1000, this);
+  private Timer newTimer;
   private AntSimGUI asGUI;
   private Colony simColony;
   
   public Simulation(AntSimGUI asGUI) {
     turnCount = 0;
+    newTimer = new Timer(1000, this);
     this.asGUI = asGUI;
     asGUI.addSimulationEventListener(this);
     ColonyView colonyView = new ColonyView(27, 27);
@@ -24,7 +25,6 @@ public class Simulation implements ActionListener, SimulationEventListener {
   }
   public void start() {
     //timer functionality for continuous simulation
-    //newTimer = new Timer(1000, this);
     newTimer.start();
   }
   public void step() {
