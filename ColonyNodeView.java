@@ -134,7 +134,6 @@ public class ColonyNodeView extends JPanel
 		
 		// set size
 		setPreferredSize(new Dimension(ColonyView.NODE_SIZE, ColonyView.NODE_SIZE));
-    System.out.println(" - - New ColonyViewNode Created !!! - - ");
 	}
 	
 	
@@ -288,7 +287,6 @@ public class ColonyNodeView extends JPanel
 	 */
 	public void showNode()
 	{
-		System.out.println(" - - Show Node TRUE !!! - - ");
     setVisible(true);
 	}
 	
@@ -347,7 +345,6 @@ public class ColonyNodeView extends JPanel
 	public void setForagerCount(int numForagers)
 	{
 		foragerLabel.setText("F: " + numForagers);
-    System.out.println(" -  - ForagerCount: "+numForagers);
 	}
 	
 	

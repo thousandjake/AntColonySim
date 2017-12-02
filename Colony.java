@@ -3,18 +3,26 @@
 //Written On: 2017-11-22
 //Description:
 
+import dataStructures.*;
 
 public class Colony {
-  public ColonyView cv;
-  public ColonyNode[][] nodeList = new ColonyNode[27][27];
-  //public ArrayList antList = new ArrayList();
+  private QueenAnt queen; 
+  private ColonyView cv;
+  private ColonyNode[][] nodeList = new ColonyNode[27][27];
+  private ArrayList antList = new ArrayList();
   public Colony(ColonyView cv) {
     //constructor method
     this.cv = cv;
-    //initialize the Colony by calling the initColony method
-    initColony();
   }
-  public void initColony() {
+  public boolean queenAlive() {
+    //check to see if queen is still alive, return true if alive, false if dead
+    if(queen.getCurrentAge() == queen.getMaxAge()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  public void normInit() {
     //iterate through the 27 by 27 grid creating and adding ColonyNodes to the Colony
     for(int x = 0; x < nodeList.length; ++x) {
       for(int y = 0; y < nodeList[0].length; ++y) {
@@ -33,5 +41,28 @@ public class Colony {
     ColonyNode cn = new ColonyNode(cnv, x, y);
     //add the newly created node to the nodeList at location int x, int y
     nodeList[x][y] = cn;
+    if(x == 13 && y == 13) {
+      queen =  new QueenAnt();
+      antList.add(queen);
+      cn.setQueenPresent(true);
+    }
+  }
+  public void queenTestInit() {
+    //logic to init colony for Queen Test
+  }
+  public void scoutTestInit() {
+    //logic to init colony for Scout Test
+  }
+  public void foragerTestInit() {
+    //logic to init colony for Forager Test
+  }
+  public void soldierTestInit() {
+    //logic to init colony for Soldier Test
+  }
+  public void clearColony() {
+    //logic for reseting colony
+  }
+  public void updateColony(int turnCount) {
+    //logic for updating colony
   }
 }

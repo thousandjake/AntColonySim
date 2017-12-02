@@ -12,7 +12,11 @@ public class QueenAnt implements Ant {
   private int yCoordinate;
   //constructor
   public QueenAnt() {
-
+    antID = 1;
+    currentAge = 1;
+    maxAge = 20;
+    xCoordinate = 13;
+    yCoordinate = 13;
   }
   //get and set methods
   public int getAntID() {
