@@ -3,8 +3,14 @@
 //Written On: 2017-11-22
 //Description: 
 
+import java.util.*;
+
 public class ColonyNode {
+  //reference to view for Colony Node
   public ColonyNodeView cnv;
+  //static random number generator
+  private static Random r = new Random();
+  //attributes
   public int xCoord;
   public int yCoord;
   private String nodeID;
@@ -15,9 +21,8 @@ public class ColonyNode {
   private int scoutCount;
   private int soldierCount;
   private int balaCount;
-
+  //constructor method
   public ColonyNode(ColonyNodeView cnv, int x, int y) {
-    //constructor method
     this.cnv = cnv;
     this.xCoord = x;
     this.yCoord = y;
@@ -51,6 +56,14 @@ public class ColonyNode {
   public int getPheromoneLevel() {
     return pheromoneLevel;
   }
+  public void addFoodUnit() {
+    foodLevel++;
+    cnv.setFoodAmount(foodLevel);
+  }
+  public void removeFoodUnit() {
+    foodLevel--;
+    cnv.setFoodAmount(foodLevel);
+  }
   public void setPheromoneLevel(int pheromoneAmount) {
     pheromoneLevel = pheromoneAmount;
     cnv.setPheromoneLevel(pheromoneAmount);
@@ -61,6 +74,16 @@ public class ColonyNode {
   public void setQueenPresent(boolean queenStatus) {
     queenPresent = queenStatus;
     cnv.setQueen(queenStatus);
+    if(queenPresent) {
+      cnv.showQueenIcon();
+    }
+  }
+  public void setNodeVisible(boolean visible) {
+    if(visible) {
+      cnv.showNode();
+    } else {
+      cnv.hideNode();
+    }
   }
   // - - - - - - FORAGER ANTS !!! - - - - - - 
   public int getForagerCount() {

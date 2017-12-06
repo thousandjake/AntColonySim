@@ -54,6 +54,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
         System.out.println(" - - Sim Already in Process !!! - - ");
       } else {
         turnCount = 0;
+        asGUI.setTime(turnsToString());
         simColony.clearColony();
         simColony.normInit();
       }
@@ -64,6 +65,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
         System.out.println(" - - Sim Already in Process !!! - - ");
       } else {
         turnCount = 0;
+        asGUI.setTime(turnsToString());
         simColony.clearColony();
         simColony.queenTestInit();
       }
@@ -74,6 +76,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
         System.out.println(" - - Sim Already in Process !!! - - ");
       } else {
         turnCount = 0;
+        asGUI.setTime(turnsToString());
         simColony.clearColony();
         simColony.scoutTestInit();
       }
@@ -84,6 +87,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
         System.out.println(" - - Sim Already in Process !!! - - ");
       } else {
         turnCount = 0;
+        asGUI.setTime(turnsToString());
         simColony.clearColony();
         simColony.foragerTestInit();
       }
@@ -94,6 +98,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
         System.out.println(" - - Sim Already in Process !!! - - ");
       } else {
         turnCount = 0;
+        asGUI.setTime(turnsToString());
         simColony.clearColony();
         simColony.soldierTestInit();
       }

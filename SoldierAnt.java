@@ -3,6 +3,8 @@
 //Written On: 2017-11-27
 //Description:
 
+import java.util.*;
+
 public class SoldierAnt implements Ant {
   //attributes
   private int antID;
@@ -10,9 +12,15 @@ public class SoldierAnt implements Ant {
   private int maxAge;
   private int xCoordinate;
   private int yCoordinate;
+  //static random number generator
+  private static Random r = new Random();
   //constructor
-  public SoldierAnt() {
-
+  public SoldierAnt(int antID) {
+    this.antID = antID;
+    currentAge = 1;
+    maxAge = 3650;
+    xCoordinate = 13;
+    yCoordinate = 13;
   }
   //get and set methods
   public int getAntID() {
@@ -47,5 +55,9 @@ public class SoldierAnt implements Ant {
   }
   public void moveAction(int xCoord, int yCoord) {
     //need moveAction logic
+  }
+  public void update(int turnCount, ColonyNode[][] nodeList) {
+    //need updateAction logic
+    System.out.println(" - - Soldier Update Triggered !!! - - ");
   }
 }

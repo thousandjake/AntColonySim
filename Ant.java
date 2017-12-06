@@ -19,8 +19,8 @@ public interface Ant {
   //get & set yXoordinate attrbiute
   int getYCoordinate();
   void setYCoordinate(int yCoordinate);
-  //moveAction to move Ant from Node to Node
-  void moveAction(int xCoord, int yCoord);
+  //update Action on turn change for the Ant
+  void update(int turnCount, ColonyNode[][] nodeList);
 }
 
 
