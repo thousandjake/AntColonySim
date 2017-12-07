@@ -14,6 +14,7 @@ public class ColonyNode {
   public int xCoord;
   public int yCoord;
   private String nodeID;
+  private boolean nodeVisible;
   private int foodLevel;
   private int pheromoneLevel;
   private boolean queenPresent;
@@ -28,16 +29,16 @@ public class ColonyNode {
     this.yCoord = y;
 
     setNodeID(x,y);
-    //TODO - generate random food level for ColonyNode
-    setFoodLevel(10);
-    //TODO - generate random pheromone level for ColonyNode
-    setPheromoneLevel(1000);
+    hideNode();
+    randomFoodLevel();
+    setPheromoneLevel(0);
     setQueenPresent(false);
     setForagerCount(0);
     setScoutCount(0);
     setSoldierCount(0);
     setBalaCount(0);
   }
+  // - - - - - - Get & Set NodeID !!! - - - - - - 
   public String getNodeID() {
     return nodeID;
   }
@@ -46,6 +47,19 @@ public class ColonyNode {
     nodeID = newNodeID;
     cnv.setID(newNodeID);
   }
+  // - - - - - - Get & Set Node Visible !!! - - - - - - 
+  public boolean getNodeVisibility() {
+    return nodeVisible;
+  }
+  public void showNode() {
+    nodeVisible = true;
+    cnv.showNode();
+  }
+  public void hideNode() {
+    nodeVisible = false;
+    cnv.hideNode();
+  }
+  // - - - - - - Manipulate Food Level !!! - - - - - - 
   public int getFoodLevel() {
     return foodLevel;
   }
@@ -53,10 +67,7 @@ public class ColonyNode {
     foodLevel = foodAmount;
     cnv.setFoodAmount(foodAmount);
   }
-  public int getPheromoneLevel() {
-    return pheromoneLevel;
-  }
-  public void addFoodUnit() {
+   public void addFoodUnit() {
     foodLevel++;
     cnv.setFoodAmount(foodLevel);
   }
@@ -64,10 +75,27 @@ public class ColonyNode {
     foodLevel--;
     cnv.setFoodAmount(foodLevel);
   }
+  public void randomFoodLevel() {
+    int foodChance = r.nextInt(100);
+    int foodAmount = r.nextInt(500)+500;
+    if(foodChance < 25) {
+      foodLevel = foodAmount;
+      cnv.setFoodAmount(foodLevel);
+    } 
+  }
+  // - - - - - - Manipulate Pheromone Level !!! - - - - - - 
+  public int getPheromoneLevel() {
+    return pheromoneLevel;
+  }
   public void setPheromoneLevel(int pheromoneAmount) {
     pheromoneLevel = pheromoneAmount;
     cnv.setPheromoneLevel(pheromoneAmount);
   }
+  public void addPheromoneLevel() {
+    pheromoneLevel++;
+    cnv.setPheromoneLevel(pheromoneLevel);
+  }
+  // - - - - - - Get & Set QueenPresent !!! - - - - - - 
   public boolean getQueenPresent() {
     return queenPresent;
   }
@@ -76,13 +104,6 @@ public class ColonyNode {
     cnv.setQueen(queenStatus);
     if(queenPresent) {
       cnv.showQueenIcon();
-    }
-  }
-  public void setNodeVisible(boolean visible) {
-    if(visible) {
-      cnv.showNode();
-    } else {
-      cnv.hideNode();
     }
   }
   // - - - - - - FORAGER ANTS !!! - - - - - - 

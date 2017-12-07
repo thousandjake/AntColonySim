@@ -77,7 +77,7 @@ public class QueenAnt implements Ant {
     consumeFood(nodeList);
   }
   public Ant hatchAnt(int antCount, ColonyNode[][] nodeList) {
-    int randNum = r.nextInt(100) + 1;
+    int randNum = r.nextInt(100);
     if(randNum < 50) {
       ForagerAnt fAnt = new ForagerAnt(antCount);
       nodeList[13][13].addForager();

@@ -60,11 +60,11 @@ public class Colony {
       createScout();
     }
     //set Food Amount of Queen Node to 1000 units
-    nodeList[13][13].setFoodLevel(10);
+    nodeList[13][13].setFoodLevel(1000);
     //make 9 middle nodes visible
     for(int a=12; a<15; ++a) {
       for(int b=12; b<15; ++b) {
-        nodeList[a][b].setNodeVisible(true);
+        nodeList[a][b].showNode();
       }
     }
   }
@@ -74,7 +74,7 @@ public class Colony {
     //create Queen Ant
     createQueen();
     //make Queen Node visible
-    nodeList[13][13].setNodeVisible(true);
+    nodeList[13][13].showNode();
   }
   public void scoutTestInit() {
     //logic to init colony for Scout Test

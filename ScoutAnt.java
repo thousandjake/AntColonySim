@@ -53,11 +53,26 @@ public class ScoutAnt implements Ant {
   public void setYCoordinate(int yCoordinate) {
     this.yCoordinate = yCoordinate;
   }
-  public void moveAction(int xCoord, int yCoord) {
+  public void moveAction(ColonyNode[][] nodeList) {
     //need moveAction logic
+    int randX = 0, randY = 0;
+    while(randX == 0 && randY == 0) {
+      randX = r.nextInt(3)-1;
+      randY = r.nextInt(3)-1;
+    }
+    nodeList[xCoordinate][yCoordinate].removeScout();
+    if(xCoordinate > 0 && xCoordinate < 26) {
+      xCoordinate = xCoordinate + randX;
+    }
+    if(yCoordinate > 0 && yCoordinate < 26) {
+      yCoordinate = yCoordinate + randY;
+    }
+    nodeList[xCoordinate][yCoordinate].showNode();
+    nodeList[xCoordinate][yCoordinate].addScout();
   }
   public void update(int turnCount, ColonyNode[][] nodeList) {
     //need updateAction logic
     System.out.println(" - - Scout Update Triggered !!! - - ");
+    moveAction(nodeList);
   }
 }

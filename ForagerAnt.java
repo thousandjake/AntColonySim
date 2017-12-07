@@ -53,7 +53,7 @@ public class ForagerAnt implements Ant {
   public void setYCoordinate(int yCoordinate) {
     this.yCoordinate = yCoordinate;
   }
-  public void moveAction(int xCoord, int yCoord) {
+  public void moveAction(ColonyNode[][] nodeList) {
     //need moveAction logic
   }
   public void update(int turnsCount, ColonyNode[][] nodeList) {
