@@ -161,21 +161,23 @@ public class SoldierAnt implements Ant {
         }
       }
     }
-    //remove Soldier from ColonyNode
-    nodeList[xCoordinate][yCoordinate].removeSoldier();
-    //create random integer representing one of the Objects in the ArrayList
-    int randomChoice = r.nextInt(possibleMoves.size());
-    //create a CoordinateObject from the chosen Object
-    CoordinateObject newCO = possibleMoves.get(randomChoice);
-    //set xCoordinate to new xCoordinate
-    xCoordinate = newCO.getXCoordinate();
-    //set yCoordinate to new yCoordinate
-    yCoordinate = newCO.getYCoordinate();
-    //add Soldier to new ColonyNode
-    nodeList[xCoordinate][yCoordinate].addSoldier();
-    //if BalaAnt is present, call attack action
-    if(nodeList[xCoordinate][yCoordinate].getBalaCount() > 0) {
-      attackAction(nodeList, antList);
+    if(possibleMoves.size() > 0) {
+      //remove Soldier from ColonyNode
+      nodeList[xCoordinate][yCoordinate].removeSoldier();
+      //create random integer representing one of the Objects in the ArrayList
+      int randomChoice = r.nextInt(possibleMoves.size());
+      //create a CoordinateObject from the chosen Object
+      CoordinateObject newCO = possibleMoves.get(randomChoice);
+      //set xCoordinate to new xCoordinate
+      xCoordinate = newCO.getXCoordinate();
+      //set yCoordinate to new yCoordinate
+      yCoordinate = newCO.getYCoordinate();
+      //add Soldier to new ColonyNode
+      nodeList[xCoordinate][yCoordinate].addSoldier();
+      //if BalaAnt is present, call attack action
+      if(nodeList[xCoordinate][yCoordinate].getBalaCount() > 0) {
+        attackAction(nodeList, antList);
+      }
     }
   }
   //< - - - - - - Update Methods covers all Soldier actions for each turn update - - - - - - >

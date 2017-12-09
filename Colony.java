@@ -44,12 +44,17 @@ public class Colony {
   //< - - - - - - createColonyGrid Method fills Array of ColonyNodes - - - - - - >
   public void createColonyGrid() {
     //iterate through the 27 by 27 grid creating and adding ColonyNodes to the Colony
+    //remove all ColonyNodeViews before re-rendering grid
+    cv.removeAll();
     for(int x = 0; x < nodeList.length; ++x) {
       for(int y = 0; y < nodeList[0].length; ++y) {
         //call addColonyNode method to add a new ColonyNode to the Colony at int x, int y location
         addColonyNode(x, y);
       }
     }
+    //repaint and revalidate the view after adding new elements
+    cv.repaint();
+    cv.revalidate();
   }
   //< - - - - - - addColonyNode Method - - - - - >
   public void addColonyNode(int x, int y) {
@@ -164,8 +169,8 @@ public class Colony {
     //create 1 Bala Ant
     createBala();
      //make 9 middle nodes visible
-    for(int a=12; a<15; ++a) {
-      for(int b=12; b<15; ++b) {
+    for(int a=10; a<17; ++a) {
+      for(int b=10; b<17; ++b) {
         nodeList[a][b].showNode();
         nodeList[a][b].setFoodLevel(0);
       }

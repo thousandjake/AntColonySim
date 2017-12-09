@@ -65,63 +65,64 @@ public class Simulation implements ActionListener, SimulationEventListener {
     if(simEvent.getEventType() == SimulationEvent.NORMAL_SETUP_EVENT) {
       //set up simulation for normal operation
       if(newTimer.isRunning()) {
-      } else {
-        turnCount = 0;
-        asGUI.setTime(turnsToString());
-        simColony.clearColony();
-        simColony.normInit();
+        newTimer.stop();
       }
+      turnCount = 0;
+      asGUI.setTime(turnsToString());
+      simColony.clearColony();
+      simColony.normInit();
     } else if(simEvent.getEventType() == SimulationEvent.QUEEN_TEST_EVENT) {
       //set up simulation for testing the queen ant
       if(newTimer.isRunning()) {
-      } else {
-        turnCount = 0;
-        asGUI.setTime(turnsToString());
-        simColony.clearColony();
-        simColony.queenTestInit();
+        newTimer.stop();
       }
+      turnCount = 0;
+      asGUI.setTime(turnsToString());
+      simColony.clearColony();
+      simColony.queenTestInit();
     } else if(simEvent.getEventType() == SimulationEvent.SCOUT_TEST_EVENT) {
       //set up simulation for testing the scout ant
       if(newTimer.isRunning()) {
-      } else {
-        turnCount = 0;
-        asGUI.setTime(turnsToString());
-        simColony.clearColony();
-        simColony.scoutTestInit();
-      }
+        newTimer.stop();
+      } 
+      turnCount = 0;
+      asGUI.setTime(turnsToString());
+      simColony.clearColony();
+      simColony.scoutTestInit();
     } else if(simEvent.getEventType() == SimulationEvent.FORAGER_TEST_EVENT) {
       //set up simulation for testing the forager ant
       if(newTimer.isRunning()) {
-      } else {
-        turnCount = 0;
-        asGUI.setTime(turnsToString());
-        simColony.clearColony();
-        simColony.foragerTestInit();
-      }
+        newTimer.stop();
+      } 
+      turnCount = 0;
+      asGUI.setTime(turnsToString());
+      simColony.clearColony();
+      simColony.foragerTestInit();
     } else if(simEvent.getEventType() == SimulationEvent.SOLDIER_TEST_EVENT) {
       //set up simulation for testing the soldier ant
       if(newTimer.isRunning()) {
-      } else {
-        turnCount = 0;
-        asGUI.setTime(turnsToString());
-        simColony.clearColony();
-        simColony.soldierTestInit();
+        newTimer.stop();
       }
+      turnCount = 0;
+      asGUI.setTime(turnsToString());
+      simColony.clearColony();
+      simColony.soldierTestInit();
     } else if(simEvent.getEventType() == SimulationEvent.RUN_EVENT) {
       //set up simulation to run continuously
       if(newTimer.isRunning()) {
+        newTimer.stop();
       } else {
         start();
       }
     } else if(simEvent.getEventType() == SimulationEvent.STEP_EVENT) {
       //run the next turn of the simulation
       if(newTimer.isRunning()) {
+        newTimer.stop();
+      }
+      if(simColony.queenAlive()) {
+        step();
       } else {
-        if(simColony.queenAlive()) {
-          step();
-        } else {
-          System.out.println(" - - Queen is Dead, Simulation Over !!! - - ");
-        }
+        System.out.println(" - - Queen is Dead, Simulation Over !!! - - ");
       }
     }else {
       //invalid event occurred - probably will never happen
