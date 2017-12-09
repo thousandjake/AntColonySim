@@ -3,10 +3,17 @@
 //Written By: 2017-11-27
 //Description: 
 
+import java.util.*;
+
 public interface Ant {
   //get & set AntID attribute
   int getAntID();
   void setAntID(int antID);
+  //get AntID attribute
+  int getAntType();
+  //method to kill Ant if attacked
+  void killAnt();
+  boolean checkAlive();
   //get & set currentAge attribute
   int getCurrentAge();
   void setCurrentAge(int currentAge);
@@ -20,7 +27,7 @@ public interface Ant {
   int getYCoordinate();
   void setYCoordinate(int yCoordinate);
   //update Action on turn change for the Ant
-  void update(int turnCount, ColonyNode[][] nodeList);
+  boolean update(int turnCount, ColonyNode[][] nodeList, LinkedList antList);
 }
 
 

@@ -8,23 +8,30 @@ import java.util.*;
 public class ScoutAnt implements Ant {
   //attributes
   private int antID;
+  private int antType;
   private int currentAge;
   private int maxAge;
   private int xCoordinate;
   private int yCoordinate;
+  private boolean isAlive;
   //static random number generator
   private static Random r = new Random();
   //constructor
   public ScoutAnt(int antID) {
     this.antID = antID;
+    antType = 2;
     currentAge = 1;
     maxAge = 3650;
     xCoordinate = 13;
     yCoordinate = 13;
+    isAlive = true;
   }
   //get and set methods
   public int getAntID() {
     return antID;
+  }
+  public int getAntType() {
+    return antType;
   }
   public void setAntID(int antID) {
     this.antID = antID;
@@ -41,6 +48,12 @@ public class ScoutAnt implements Ant {
   public void setMaxAge(int maxAge) {
     this.maxAge = maxAge;
   }
+  public boolean checkAlive() {
+    return isAlive;
+  }
+  public void killAnt() {
+    isAlive = false;
+  }
   public int getXCoordinate() {
     return xCoordinate;
   }
@@ -55,24 +68,34 @@ public class ScoutAnt implements Ant {
   }
   public void moveAction(ColonyNode[][] nodeList) {
     //need moveAction logic
-    int randX = 0, randY = 0;
-    while(randX == 0 && randY == 0) {
-      randX = r.nextInt(3)-1;
-      randY = r.nextInt(3)-1;
+    ArrayList<CoordinateObject> possibleMoves = new ArrayList<CoordinateObject>();
+    for(int x=-1; x < 2; ++x) {
+      for(int y = -1; y < 2; ++y) {
+        int newX = xCoordinate + x;
+        int newY = yCoordinate + y;
+        if( newX >= 0 && newX <= 26 && newY >= 0 && newY <=26) {
+          if(!(newX == xCoordinate && newY == yCoordinate)) {
+            CoordinateObject cO = new CoordinateObject(newX, newY);
+            possibleMoves.add(cO);
+          }
+        }
+      }
     }
     nodeList[xCoordinate][yCoordinate].removeScout();
-    if(xCoordinate > 0 && xCoordinate < 26) {
-      xCoordinate = xCoordinate + randX;
-    }
-    if(yCoordinate > 0 && yCoordinate < 26) {
-      yCoordinate = yCoordinate + randY;
-    }
-    nodeList[xCoordinate][yCoordinate].showNode();
+    int randomChoice = r.nextInt(possibleMoves.size());
+    xCoordinate = possibleMoves.get(randomChoice).getXCoordinate();
+    yCoordinate = possibleMoves.get(randomChoice).getYCoordinate();
     nodeList[xCoordinate][yCoordinate].addScout();
+    nodeList[xCoordinate][yCoordinate].showNode();
   }
-  public void update(int turnCount, ColonyNode[][] nodeList) {
+  public boolean update(int turnCount, ColonyNode[][] nodeList, LinkedList antList) {
     //need updateAction logic
     System.out.println(" - - Scout Update Triggered !!! - - ");
-    moveAction(nodeList);
+    if(!isAlive) {
+      return false;
+    } else {
+      moveAction(nodeList);
+      return true;
+    }
   }
 }

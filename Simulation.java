@@ -16,7 +16,7 @@ public class Simulation implements ActionListener, SimulationEventListener {
   
   public Simulation(AntSimGUI asGUI) {
     turnCount = 0;
-    newTimer = new Timer(1000, this);
+    newTimer = new Timer(100, this);
     this.asGUI = asGUI;
     asGUI.addSimulationEventListener(this);
     ColonyView colonyView = new ColonyView(27, 27);

@@ -8,6 +8,7 @@ import java.util.*;
 public class QueenAnt implements Ant {
   //attributes
   private int antID;
+  private int antType;
   private int currentAge;
   private int maxAge;
   private int xCoordinate;
@@ -18,6 +19,7 @@ public class QueenAnt implements Ant {
   //constructor
   public QueenAnt() {
     antID = 0;
+    antType = 0;
     currentAge = 1;
     maxAge = 73000;
     xCoordinate = 13;
@@ -30,6 +32,9 @@ public class QueenAnt implements Ant {
   }
   public void setAntID(int antID) {
     this.antID = antID;
+  }
+  public int getAntType() {
+    return antType;
   }
   public int getCurrentAge() {
     return currentAge;
@@ -64,6 +69,9 @@ public class QueenAnt implements Ant {
   public boolean checkAlive() {
     return isAlive;
   }
+  public void killAnt() {
+    isAlive = false;
+  }
   public void consumeFood(ColonyNode[][] nodeList) {
     if(nodeList[xCoordinate][yCoordinate].getFoodLevel() > 0) {
       nodeList[xCoordinate][yCoordinate].removeFoodUnit();
@@ -71,10 +79,15 @@ public class QueenAnt implements Ant {
       isAlive = false;
     }
   }
-  public void update(int turnCount, ColonyNode[][] nodeList) {
+  public boolean update(int turnCount, ColonyNode[][] nodeList, LinkedList antList) {
     System.out.println(" - - Queen Update Triggered !!! - - ");
+    if(!isAlive) {
+      return false;
+    } else {
     setCurrentAge(turnCount);
-    consumeFood(nodeList);
+      consumeFood(nodeList);
+      return true;
+    }
   }
   public Ant hatchAnt(int antCount, ColonyNode[][] nodeList) {
     int randNum = r.nextInt(100);

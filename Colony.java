@@ -11,11 +11,15 @@ public class Colony {
   private ColonyView cv;
   private ColonyNode[][] nodeList;
   private LinkedList antList;
+  private boolean queenHatching;
+  private static Random r;
   public Colony(ColonyView cv) {
     //constructor method
     this.cv = cv;
     nodeList = new ColonyNode[27][27];
     antList = new LinkedList();
+    queenHatching = true;
+    r = new Random();
   }
   public boolean queenAlive() {
     //check to see if queen is still alive, return true if alive, false if dead
@@ -59,14 +63,15 @@ public class Colony {
     for(int z=0; z < 4; ++z) {
       createScout();
     }
-    //set Food Amount of Queen Node to 1000 units
-    nodeList[13][13].setFoodLevel(1000);
     //make 9 middle nodes visible
     for(int a=12; a<15; ++a) {
       for(int b=12; b<15; ++b) {
         nodeList[a][b].showNode();
+        nodeList[a][b].setFoodLevel(0);
       }
     }
+    //set Food Amount of Queen Node to 1000 units
+    nodeList[13][13].setFoodLevel(1000);
   }
   public void queenTestInit() {
     //logic to init colony for Queen Test
@@ -83,6 +88,25 @@ public class Colony {
   public void foragerTestInit() {
     //logic to init colony for Forager Test
     createColonyGrid();
+    //create Queen Ant
+    createQueen();
+    //create 1 Forager Ant
+    createForager();
+    //set Queen Node
+    nodeList[13][13].setFoodLevel(1000);
+    nodeList[13][13].showNode();
+    //set adjacent nodes
+    nodeList[13][14].setFoodLevel(0);
+    nodeList[13][14].showNode();
+    nodeList[13][15].setFoodLevel(0);
+    nodeList[13][15].showNode();
+    nodeList[13][16].setFoodLevel(0);
+    nodeList[13][16].showNode();
+    nodeList[13][17].setFoodLevel(0);
+    nodeList[13][17].showNode();
+    nodeList[13][18].setFoodLevel(1000);
+    nodeList[13][18].showNode();
+    queenHatching = false;
   }
   public void soldierTestInit() {
     //logic to init colony for Soldier Test
@@ -94,13 +118,46 @@ public class Colony {
   }
   public void updateColony(int turnCount) {
     //logic for updating colony
-    if(turnCount%10 == 0) {
+    ArrayList<Ant> antsForRemoval = new ArrayList<Ant>();
+    int balaChance = r.nextInt(100);
+    if(balaChance < 3) {
+      createBala();
+    }
+    if(turnCount%10 == 0 && queenHatching) {
       Ant newAnt = queen.hatchAnt(antList.size(), nodeList);
       antList.add(newAnt);
     }
-    for(Iterator itr = antList.iterator(); itr.hasNext();) {
-      ((Ant)itr.next()).update(turnCount, nodeList);
+    if(turnCount%10 == 0) {
+      for(int x = 0; x < 27; ++x) {
+        for(int y = 0; y < 27; ++y) {
+          int halfP = nodeList[x][y].getPheromoneLevel() / 2;
+          nodeList[x][y].setPheromoneLevel(halfP);
+        }
+      }
     }
+    for(int x = 0; x < antList.size(); ++x) {
+      boolean antUpdated = ((Ant)antList.get(x)).update(turnCount, nodeList, antList);
+      if(!antUpdated) {
+        antsForRemoval.add(((Ant)antList.get(x)));
+      }
+    }
+    for(int y = 0; y < antsForRemoval.size(); ++y) {
+      int xCoordinate = ((Ant)antsForRemoval.get(y)).getXCoordinate();
+      int yCoordinate = ((Ant)antsForRemoval.get(y)).getYCoordinate();
+      if(((Ant)antsForRemoval.get(y)).getAntType() == 0) {
+        nodeList[xCoordinate][yCoordinate].setQueenPresent(false);
+      } else if(((Ant)antsForRemoval.get(y)).getAntType() == 1) {
+        nodeList[xCoordinate][yCoordinate].removeForager();
+      } else if(((Ant)antsForRemoval.get(y)).getAntType() == 2) {
+        nodeList[xCoordinate][yCoordinate].removeScout();
+      } else if(((Ant)antsForRemoval.get(y)).getAntType() == 3) {
+        nodeList[xCoordinate][yCoordinate].removeSoldier();
+      } else if(((Ant)antsForRemoval.get(y)).getAntType() == 4) {
+        nodeList[xCoordinate][yCoordinate].removeBala();
+      }
+      antList.remove(antsForRemoval.get(y));
+    }
+    antsForRemoval.clear();
   }
   public void createQueen() {
     queen = new QueenAnt();
@@ -109,7 +166,7 @@ public class Colony {
   }
   public void createForager() {
     int fAntID = antList.size();
-    ForagerAnt fAnt = new ForagerAnt(fAntID);
+    Ant fAnt = new ForagerAnt(fAntID);
     antList.add(fAnt);
     nodeList[13][13].addForager();
   }
@@ -127,7 +184,7 @@ public class Colony {
   }
   public void createBala() {
     int bAntID = antList.size();
-    BalaAnt bAnt = new BalaAnt(bAntID, 0, 0);
+    BalaAnt bAnt = new BalaAnt(bAntID, nodeList);
     antList.add(bAnt);
     //TODO - add location
   }
