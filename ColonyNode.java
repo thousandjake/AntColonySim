@@ -1,12 +1,12 @@
 //Filename: ColonyNode.java
 //Written By: Jake Thousand
-//Written On: 2017-11-22
-//Description: 
+//Written On: 2017-12-09
+//Description: ColonyNode class represents each Node in the Ant Colony Simulator
 
 import java.util.*;
 
 public class ColonyNode {
-  //reference to view for Colony Node
+  //reference to view for ColonyNode
   public ColonyNodeView cnv;
   //static random number generator
   private static Random r = new Random();
@@ -24,15 +24,22 @@ public class ColonyNode {
   private int balaCount;
   //constructor method
   public ColonyNode(ColonyNodeView cnv, int x, int y) {
-    this.cnv = cnv;
+    //reference to view for ColonyNode
+    this.cnv = cnv; 
+    //set x and y coordinates in Colony Grid (Range 0  - 26)
     this.xCoord = x;
     this.yCoord = y;
-
+    //set nodeID based on position in Colony Grid
     setNodeID(x,y);
+    //ColonyNodes start hidden for scouting in Simulation
     hideNode();
+    //set foodLevel in Node based on random chance
     randomFoodLevel();
+    //set pheromoneLevel to 0 to start
     setPheromoneLevel(0);
+    //set queenPresent to false, middle Node will have queenPresent
     setQueenPresent(false);
+    //all Ant Counts start at 0
     setForagerCount(0);
     setScoutCount(0);
     setSoldierCount(0);
@@ -45,6 +52,7 @@ public class ColonyNode {
   public void setNodeID(int x, int y) {
     String newNodeID = ""+x+", "+y;
     nodeID = newNodeID;
+    //set nodeID in the view
     cnv.setID(newNodeID);
   }
   // - - - - - - Get & Set Node Visible !!! - - - - - - 
@@ -52,10 +60,12 @@ public class ColonyNode {
     return nodeVisible;
   }
   public void showNode() {
+    //set attribute to true and make Node visible in view
     nodeVisible = true;
     cnv.showNode();
   }
   public void hideNode() {
+    //set attribute to false and make Node hidden in view
     nodeVisible = false;
     cnv.hideNode();
   }
@@ -64,21 +74,28 @@ public class ColonyNode {
     return foodLevel;
   }
   public void setFoodLevel(int foodAmount) {
+    //set attribute amount and update quantity in view
     foodLevel = foodAmount;
     cnv.setFoodAmount(foodAmount);
   }
    public void addFoodUnit() {
+     //add 1 unit of food and update quantity in view 
     foodLevel++;
     cnv.setFoodAmount(foodLevel);
   }
   public void removeFoodUnit() {
+    //remove 1 unit of food and update quantity in view
     foodLevel--;
     cnv.setFoodAmount(foodLevel);
   }
   public void randomFoodLevel() {
+    //generate random int between 0 - 99 
     int foodChance = r.nextInt(100);
+    //generate random int between 500 - 1000
     int foodAmount = r.nextInt(500)+500;
+    //if random int foodChance is between 0 - 25 (25%), Node has food
     if(foodChance < 25) {
+      //set foodLevel to random int foodAmount and update  view
       foodLevel = foodAmount;
       cnv.setFoodAmount(foodLevel);
     } 
@@ -88,10 +105,12 @@ public class ColonyNode {
     return pheromoneLevel;
   }
   public void setPheromoneLevel(int pheromoneAmount) {
+    //set pheromoneLevel and update view
     pheromoneLevel = pheromoneAmount;
     cnv.setPheromoneLevel(pheromoneAmount);
   }
   public void addPheromoneLevel() {
+    //add one unit of pheromone and update view
     pheromoneLevel++;
     cnv.setPheromoneLevel(pheromoneLevel);
   }
@@ -100,6 +119,7 @@ public class ColonyNode {
     return queenPresent;
   }
   public void setQueenPresent(boolean queenStatus) {
+    //set queenPresent to true or false and update view / icon accordingly
     queenPresent = queenStatus;
     cnv.setQueen(queenStatus);
     if(queenPresent) {
@@ -112,7 +132,7 @@ public class ColonyNode {
   }
   public void setForagerCount(int count) {
     if(count < 0) {
-      System.out.println(" - - Error Forager Count < 0 !!! - - ");
+      System.out.println(" - - Error Forager Count < 0 !!! - - "); 
     } else if(count == 0) {
       foragerCount = count;
       cnv.setForagerCount(count);
@@ -122,7 +142,6 @@ public class ColonyNode {
       cnv.setForagerCount(count);
       cnv.showForagerIcon();
     }
-    //cnv.repaint();
   }
   public void addForager() {
     if(foragerCount < 0) {
@@ -164,7 +183,6 @@ public class ColonyNode {
       cnv.setScoutCount(count);
       cnv.showScoutIcon();
     }
-    //cnv.repaint();
   }
   public void addScout() {
     if(scoutCount < 0) {
@@ -206,7 +224,6 @@ public class ColonyNode {
       cnv.setSoldierCount(count);
       cnv.showSoldierIcon();
     }
-    //cnv.repaint();
   }
   public void addSoldier() {
     if(soldierCount < 0) {
@@ -248,7 +265,6 @@ public class ColonyNode {
       cnv.setBalaCount(count);
       cnv.showBalaIcon();
     }
-    //cnv.repaint();
   }
   public void addBala() {
     if(balaCount < 0) {

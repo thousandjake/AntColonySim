@@ -1,7 +1,7 @@
-//Filename: 
-//Written By:
-//Written On:
-//Description:
+//Filename: CoordinateObject.java
+//Written By: Jake Thousand
+//Written On: 2017=12-09
+//Description: CoordinateObject class used in Ant Colony Simulator.  The class is just used to store grid coordinates for random ant movements
 
 public class CoordinateObject {
   //attributes
